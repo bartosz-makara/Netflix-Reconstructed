@@ -2,10 +2,11 @@ import { Movie } from "../typings";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import { useRef, useState } from "react";
 import Thumbnail from "./Thumbnail";
+import { DocumentData } from "firebase/firestore";
 
 interface Props {
   title: string;
-  movies: Movie[];
+  movies: Movie[] | DocumentData[];
 }
 
 function Row({ title, movies }: Props) {
@@ -24,6 +25,7 @@ function Row({ title, movies }: Props) {
       rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
     }
   };
+
   return (
     <div className="h-40 space-y-0.5 md:space-y-2">
       <h2 className="w-56 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition duration-200 hover:text-white md:text-2xl">

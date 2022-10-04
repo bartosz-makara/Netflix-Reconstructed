@@ -2,6 +2,7 @@ import { SearchIcon, BellIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
+import BasicMenu from "./BasicMenu";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,6 +35,8 @@ function Header() {
           alt=""
         />
 
+        <BasicMenu />
+
         <ul className="hidden space-x-4 md:flex">
           <li className="headerLink">Home</li>
           <li className="headerLink">TV Shows</li>
@@ -52,7 +55,6 @@ function Header() {
             src="https://rb.gy/g1pwyx"
             alt=""
             className="cursor-pointer rounded"
-            onClick={logout}
           />
         </Link>
       </div>
