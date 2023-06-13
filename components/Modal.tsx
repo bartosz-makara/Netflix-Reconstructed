@@ -31,6 +31,7 @@ function Modal() {
   const [trailer, setTrailer] = useState("");
   const [genres, setGenres] = useState<Genre[]>([]);
   const [muted, setMuted] = useState(true);
+  const [play, setPlay] = useState(false);
   const { user } = useAuth();
   const [addedToList, setAddedToList] = useState(false);
   const [movies, setMovies] = useState<DocumentData[] | Movie[]>([]);
@@ -140,12 +141,15 @@ function Modal() {
             width="100%"
             height="100%"
             style={{ position: "absolute", top: "0", left: "0" }}
-            playing
+            playing={play}
             muted={muted}
           />
           <div className="absolute bottom-10 flex w-full items-center justify-between px-10">
             <div className="flex space-x-2">
-              <button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
+              <button
+                className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]"
+                onClick={() => setPlay(!play)}
+              >
                 <FaPlay className="h-7 w-7 text-black" />
                 Play
               </button>

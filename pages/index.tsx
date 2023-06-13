@@ -23,7 +23,7 @@ interface Props {
   horrorMovies: Movie[];
   romanceMovies: Movie[];
   documentaries: Movie[];
-  products: Product[];
+  products: any;
 }
 
 const Home = ({
@@ -54,7 +54,9 @@ const Home = ({
       }`}
     >
       <Head>
-        <title>{movie?.title || movie?.original_name || "Home"} - RETUO</title>
+        <title>
+          {movie?.title || movie?.original_name || "Home"} - NetflixClone
+        </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -87,12 +89,22 @@ const Home = ({
 export default Home;
 
 export const getServerSideProps = async () => {
-  const products = await getProducts(payments, {
-    includePrices: true,
-    activeOnly: true,
-  })
-    .then((res) => res)
-    .catch((error) => console.log(error.message));
+  let products = null;
+  try {
+    products = await getProducts(payments, {
+      includePrices: true,
+      activeOnly: true,
+    });
+  } catch (error: any) {
+    console.log(error.message);
+  }
+
+  // const products = await getProducts(payments, {
+  //   includePrices: true,
+  //   activeOnly: true,
+  // })
+  //   .then((res) => res)
+  //   .catch((error) => console.log(error.message));
 
   const [
     netflixOriginals,

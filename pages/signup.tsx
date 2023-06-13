@@ -4,17 +4,22 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import app from "../firebase";
+import {
+  collection,
+  getDocs,
+  getDocsFromServer,
+  query,
+  where,
+} from "firebase/firestore";
 
 interface Inputs {
   email: string;
   password: string;
 }
 
-function Login() {
+function SignUp() {
   const [login, setLogin] = useState(false);
-  const { signIn, signUp } = useAuth();
+  const { signUp } = useAuth();
   const router = useRouter();
 
   const {
@@ -24,25 +29,26 @@ function Login() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    if (login) {
-      await signIn(data.email, data.password);
-    } else {
+    if (!login) {
       await signUp(data.email, data.password);
+    } else {
+      alert("Email already exists");
     }
   };
 
   return (
     <div className="relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent">
       <Head>
-        <title>Login</title>
+        <title>Create Account</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Image
-        alt="login bg"
+        alt=""
         src="https://rb.gy/p2hphi"
         fill
         className="-z-10 !hidden opacity-60 sm:!inline"
+        // objectFit="cover"
       />
 
       <img
@@ -57,7 +63,7 @@ function Login() {
         onSubmit={handleSubmit(onSubmit)}
         className="relative mt-24 space-y-8 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:px-14"
       >
-        <h1 className="text-4xl font-semibold">Sign In</h1>
+        <h1 className="text-4xl font-semibold">Create Account</h1>
         <div className="space-y-4">
           <label className="inline-block w-full">
             <input
@@ -94,22 +100,23 @@ function Login() {
         <button
           type="submit"
           className="w-full rounded py-3 bg-[#e50914]"
-          onClick={() => setLogin(true)}
+          onClick={() => setLogin(false)}
         >
-          Sign In
+          Sign up
         </button>
 
         <div className="text-[gray]">
-          New to Netflix?{" "}
-          <Link href="/signup">
-            <p className="text-white hover:underline hover:cursor-pointer">
-              Sign up now
-            </p>
-          </Link>
+          I already have an account
+          <button
+            className="text-white hover:underline"
+            onClick={() => router.push("/login")}
+          >
+            Log in
+          </button>
         </div>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default SignUp;

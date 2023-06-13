@@ -1,4 +1,4 @@
-import { SearchIcon, BellIcon } from "@heroicons/react/outline";
+import { SearchIcon, BellIcon, UserIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
@@ -28,7 +28,7 @@ function Header() {
     <header className={`${isScrolled && "bg-[#141414]"}`}>
       <div className="flex items-center space-x-2 md:space-x-10">
         <img
-          src="https://rb.gy/ulxxee"
+          src="/netflix_logo.png"
           width={100}
           height={100}
           className="cursor-pointer object-contain"
@@ -37,19 +37,19 @@ function Header() {
 
         <BasicMenu />
 
-        <ul className="hidden space-x-4 md:flex">
-          <li className="headerLink">Home</li>
-          <li className="headerLink">TV Shows</li>
-          <li className="headerLink">Movies</li>
-          <li className="headerLink">Trending</li>
-          <li className="headerLink">My List</li>
-        </ul>
+        <nav className="hidden space-x-4 md:flex">
+          <a className="link headerLink">Home</a>
+          <a className="link headerLink">TV Shows</a>
+          <a className="link headerLink">Movies</a>
+          <a className="link headerLink">New & Popular</a>
+          <a className="link headerLink">My List</a>
+        </nav>
       </div>
 
       <div className="flex items-center space-x-4 text-sm font-light">
         <SearchIcon className="hidden sm:inline h-6 w-6 " />
         {/* <p className="hidden lg:inline">Kids</p> */}
-        <BellIcon className="h-6 w-6" />
+        {/* <BellIcon className="h-6 w-6" /> */}
         <Link href="/account">
           <img
             src="https://rb.gy/g1pwyx"
